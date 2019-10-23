@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Harry PC
+  Date: 23.12.2018
+  Time: 20:33
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Knowledge</title>
+    <h:outputStylesheet library="css" name="style.css"  />
+</h:head>
+
+<h:body>
+    <div>
+        <h1 style="text-align: center">Список авторов</h1>
+    </div>
+    <div align="center">
+        <p:dataTable binding="${table}" value="${Controller.list}" var="author" selection="#{Controller.selections}"
+                     rowKey="#{author.surname}" selectionMode="multiple" tableStyle="width: 1100px">
+            <p:column style="width:10px;">
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="${author.id}"/>
+            </p:column>
+            <p:column style="width:100px;">
+                <f:facet name="header">Фамилия</f:facet>
+                <h:outputText value="#{author.surname}"/>
+            </p:column>
+            <p:column style="width:80px;">
+                <f:facet name="header">Имя</f:facet>
+                <h:outputText value="#{author.name}"/>
+            </p:column>
+            <p:column style="width:100px;">
+                <f:facet name="header">Отчество</f:facet>
+                <h:outputText value="#{author.patronymic}"/>
+            </p:column>
+            <p:column style="width:100px;">
+                <f:facet name="header">Дата рождения</f:facet>
+                <h:outputText value="#{author.birthDate}">
+                    <f:convertDateTime pattern="dd-MM-yyyy"/>
+                </h:outputText>
+            </p:column>
+            <p:column style="width:80px;">
+                <f:facet name="header">Город</f:facet>
+                <h:outputText value="#{author.city}"/>
+            </p:column>
+            <p:column style="width:150px;">
+                <f:facet name="header">Опции</f:facet>
+                <h:form>
+                    <p:button value="Изменить" outcome="update.xhtml"  action="${Controller.update(author)}"/>
+                    <h:commandButton style="text-align: center" value="Удалить" action="${Controller.delete(author.id)}"/>
+                </h:form>
+            </p:column>
+        </p:dataTable>
+        <h:form>
+            <div>
+                <h:outputLabel>Город: </h:outputLabel>
+                <div>
+                    <h:inputText  value="#{author.city}">
+                        <f:validateRequired/>
+                    </h:inputText>
+                    <br/>
+                    <h:outputLabel>#{Controller.mystr}</h:outputLabel>
+                </div>
+            </div>
+            <br/>
+            <div>
+                <h:commandButton value="Поиск" action="#{Controller.stringAction(author.city)}"
+                                 style="width: 80px;" />
+
+            </div>
+            <br/><br/>
+            <h2><p:button value="Добавить нового автора" outcome="insert.xhtml"/></h2>
+                <br/>
+            <h2><p:button value="Установить авто инкремент" outcome="setAI.xhtml"/></h2>
+        </h:form>
+    </div>
+</h:body>
+</html>
