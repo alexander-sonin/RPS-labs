@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Knowledge</title>
+    <h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:form id="form">
+    <div align="center">
+        <div>
+            <h2>Управление Авторами</h2>
+        </div>
+        <hr/>
+        <div><h3>Изменить автора</h3></div>
+        <br/>
+        <div>
+            <h:outputLabel>Id: </h:outputLabel>
+            <div>
+                <h:inputText  value="#{authors.id}">
+                    <f:validateRequired />
+                </h:inputText>
+            </div>
+        </div>
+        <div>
+            <h:outputLabel>Фамилия: </h:outputLabel>
+            <div>
+                <h:inputText  value="#{authors.surname}">
+                </h:inputText>
+            </div>
+        </div>
+        <div>
+            <h:outputLabel>Имя: </h:outputLabel>
+            <div>
+                <h:inputText  value="#{authors.name}">
+                </h:inputText>
+            </div>
+        </div>
+        <div>
+            <h:outputLabel>Отчество: </h:outputLabel>
+            <div>
+                <h:inputText  value="#{authors.patronymic}">
+                </h:inputText>
+            </div>
+        </div>
+        <div>
+            <h:outputLabel>Дата рождения: </h:outputLabel>
+            <div>
+                <h:inputText  value="#{authors.birthDate}">
+                    <f:convertDateTime pattern="dd-MM-yyyy"/>
+                    <f:validateRequired/>
+                </h:inputText>
+            </div>
+        </div>
+        <div>
+            <h:outputLabel>Город: </h:outputLabel>
+            <div>
+                <h:inputText  value="#{authors.city}">
+                </h:inputText>
+            </div>
+        </div>
+        <br/>
+        <div>
+            <h:commandButton value="Сохранить" action="#{Controller.update(authors)}"
+                             style="width: 80px;" />
+        </div>
+        <br/>
+        <div>
+            <h:button outcome="list.xhtml" value="Список всех автров" />
+        </div>
+    </div>
+</h:form>
+</html>

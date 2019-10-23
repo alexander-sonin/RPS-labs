@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Harry PC
+  Date: 23.12.2018
+  Time: 20:33
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Knowledge</title>
+    <h:outputStylesheet library="css" name="style.css"  />
+</h:head>
+
+<h:body>
+    <h2><p:button outcome="list.xhtml" value="Список всех авторов" /></h2>
+    <div>
+        <h1 style="text-align: center">Статьи</h1>
+    </div>
+    <div align="center">
+        <p:dataTable binding="${table}" value="${ControllerArticle.list}" var="article" selection="#{ControllerArticle.selections}"
+                     rowKey="#{article.title}" selectionMode="multiple" tableStyle="width: 1300px">
+            <p:column style="width:10px;">
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="${article.id}"/>
+            </p:column>
+            <p:column style="width:150px;">
+                <f:facet name="header">Название</f:facet>
+                <h:outputText value="#{article.title}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Текст</f:facet>
+                <h:outputText value="#{article.text}"/>
+            </p:column>
+            <p:column style="width:100px;">
+                <f:facet name="header">Рейтинг</f:facet>
+                <h:outputText value="#{article.articleRating}"/>
+            </p:column>
+            <p:column style="width:100px;">
+                <f:facet name="header">Автор</f:facet>
+                <h:outputText value="#{article.fkAuthor} #{article.author.surname}"/>
+            </p:column>
+            <p:column style="width:250px;">
+                <f:facet name="header">Опции</f:facet>
+                <h:form>
+                    <p:button value="Изменить" outcome="update.xhtml" action="${ControllerArticle.update(article)}" style="size: 50px"/>
+                    <h:commandButton style="text-align: center" value="Удалить" action="${ControllerArticle.delete(article.id)}"/>
+                </h:form>
+            </p:column>
+        </p:dataTable>
+        <h:form>
+            <div>
+                <h:outputLabel>Статья: </h:outputLabel>
+                <div>
+                    <h:inputText  value="#{article.title}">
+                        <f:validateRequired/>
+                    </h:inputText>
+                    <br/>
+                    <h:outputLabel>#{ControllerArticle.mystr}</h:outputLabel>
+                </div>
+            </div>
+            <br/>
+            <div>
+                <h:commandButton value="Поиск" action="#{ControllerArticle.stringAction(article.title)}"
+                                 style="width: 80px;" />
+
+            </div>
+            <br/><br/>
+            <h2><p:button value="Добавить новую статью" outcome="insertArticle.xhtml"/></h2>
+            <h2><p:button value="Установить авто инкремент" outcome="setAIAr.xhtml"/></h2>
+        </h:form>
+    </div>
+</h:body>
+</html>
